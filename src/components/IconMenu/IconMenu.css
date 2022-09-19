@@ -1,0 +1,26 @@
+.icon-menu__button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: #202020;
+}
+
+.icon-menu__img {
+  width: 28px;
+  height: 28px;
+  background: #202020;
+  object-fit: none;
+  margin: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .icon-menu__button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon-menu__img {
+    width: 22px;
+    height: 22px;
+  }
+}
