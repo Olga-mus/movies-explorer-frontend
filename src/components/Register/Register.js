@@ -1,5 +1,4 @@
 import "./Register.css";
-import logo from "../../images/header/header-logo.svg";
 import { Link } from "react-router-dom";
 // import Header from '../Header/Header';
 function Register() {

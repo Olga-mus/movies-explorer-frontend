@@ -1,4 +1,5 @@
 import "./Profile.css";
+import { Link } from "react-router-dom";
 function Profile() {
   return (
     <section className="profile">
@@ -16,7 +17,9 @@ function Profile() {
         </div>
         <div className="profile__menu">
           <p className="profile__edit">Редактировать</p>
-          <a className="profile__link link">Выйти из аккаунта</a>
+          <Link className="profile__redirect link" to="/signup">
+            <p className="profile__link">Выйти из аккаунта</p>
+          </Link>
         </div>
       </div>
     </section>
