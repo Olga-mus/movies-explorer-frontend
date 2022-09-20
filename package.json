@@ -13,8 +13,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node app.js",
-    "build": "nodemon app.j",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "lint": "npx eslint .",
     "lint fix": "npx eslint . --fix",
     "test": "react-scripts test",
