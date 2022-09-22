@@ -12,7 +12,7 @@ function Chief() {
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </p>
           <a className="chief__link link" href="#abouts">
-            <button className="chief__button">Узнать больше</button>
+            <button type="button" className="chief__button">Узнать больше</button>
           </a>
         </div>
         <img className="chief__image" src={web} alt="логотип веб" />

@@ -26,3 +26,10 @@
     margin: 0 auto;
     display: block;
   }
+
+  @media screen and (max-width: 767px) {
+    .add__more-button {
+      width: 240px;
+    }
+  }
+  

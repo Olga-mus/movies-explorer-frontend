@@ -1,5 +1,5 @@
 import "./Portfolio.css";
-import arrow from "../../images/portfolio/arrow.png";
+import arrow from "../../images/portfolio/arrow.svg";
 
 function Portfolio() {
   return (
@@ -10,12 +10,16 @@ function Portfolio() {
           <li className="portfolio__link">
             <a
               className="portfolio__link-element link"
+              target="_blank"
+              rel="noreferrer"
               href="https://olga-mus.github.io/russian-travel/index.html"
             >
               <h3 className="portfolio__name">Статичный сайт</h3>
             </a>
             <a
               className="portfolio__link-element"
+              target="_blank"
+              rel="noreferrer"
               href="https://olga-mus.github.io/russian-travel/index.html"
             >
               <img
@@ -29,11 +33,15 @@ function Portfolio() {
             <a
               className="portfolio__link-element link"
               href="https://olga-mus.github.io/russian-travel/index.html"
+              target="_blank"
+              rel="noreferrer"
             >
               <h3 className="portfolio__name">Адаптивный сайт</h3>
             </a>
             <a
               className="portfolio__link-element"
+              target="_blank"
+              rel="noreferrer"
               href="https://olga-mus.github.io/russian-travel/index.html"
             >
               <img
@@ -46,6 +54,8 @@ function Portfolio() {
           <li className="portfolio__link">
             <a
               className="portfolio__link-element link"
+              target="_blank"
+              rel="noreferrer"
               href="https://olga-mus.github.io/mesto/index.html"
             >
               <h3 className="portfolio__name">Одностраничное приложение</h3>
@@ -53,6 +63,8 @@ function Portfolio() {
             <a
               className="portfolio__link-element"
               href="https://olga-mus.github.io/mesto/index.html"
+              target="_blank"
+              rel="noreferrer"
             >
               <img
                 alt="стрелка-ссылка"

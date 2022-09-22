@@ -7,7 +7,7 @@ function AddBlock() {
     return (
       <section className="add">
         <div className="add__more">
-          <button className="add__more-button">Ещё</button>
+          <button type="button" className="add__more-button">Ещё</button>
         </div>
       </section>
     );

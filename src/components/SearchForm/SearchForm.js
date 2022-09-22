@@ -18,7 +18,7 @@ function SerchForm() {
               />
               {/* <span class='film-error form-serch__error-message'></span> */}
             </label>
-            <button className="form-serch__button link">Найти</button>
+            <button type="button" className="form-serch__button link">Найти</button>
           </fieldset>
         </form>
       </div>

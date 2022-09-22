@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom"; // импортируем Switch
+import { useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "../Main/Main.css";
 import "./App.css";
 import Main from "../Main/Main";
@@ -10,8 +11,12 @@ import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+// import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 
 function App() {
+  // const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div className="App">
       <Header />
@@ -19,6 +24,16 @@ function App() {
       <main>
         <Switch>
           {/* Если разместить несколько компонентов Route внутри Switch, отрисуется только один из них. */}
+
+
+          {/* <ProtectedRoute
+                exact
+                path="/"
+                loggedIn={loggedIn}
+                component={Main}
+              /> */}
+
+
           <Route exact path="/">
             <Main />
           </Route>
@@ -42,6 +57,10 @@ function App() {
           <Route path="/signin">
             <Login />
           </Route>
+
+          {/* <Route>
+            <Redirect to={`${loggedIn ? "/" : "/signin"}`} />
+          </Route> */}
 
           <Route path="*">
             <PageNotFound />

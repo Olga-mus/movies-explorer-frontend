@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 function HeaderNav() {
   return (
     <nav className="header__nav">
-      <Link className="header__link link" to="/signup">
+      <Link className="header__link link" target="_blank" to="/signup">
         Регистрация
       </Link>
-      <button className="header__button link" to="/signin">
-        Войти
-      </button>
+      <Link className="header__button link" target="_blank" to="/signin">
+        <button type="button" className="header__button">Войти</button>
+      </Link>
     </nav>
   );
 }

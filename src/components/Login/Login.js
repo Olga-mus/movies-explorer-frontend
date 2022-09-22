@@ -37,12 +37,16 @@ function Login() {
                 <span className="password-error login__error-message"></span>
               </label>
             </fieldset>
-            <Link to="/signin">
-              <button className="login__button link">Войти</button>
+            <Link target="_blank" to="/signin">
+              <button type="button" className="login__button link">Войти</button>
             </Link>
             <div className="login__entry">
               <p className="login__reg">Ещё не зарегистрированы?</p>
-              <Link className="login__link-entry link link" to="/signup">
+              <Link
+                className="login__link-entry link link"
+                target="_blank"
+                to="/signup"
+              >
                 Регистрация
               </Link>
             </div>

@@ -112,6 +112,7 @@
   .technology__container {
     padding: 70px 18px;
     max-width: 731px;
+    background: #202020;
   }
 
   .set {
@@ -123,5 +124,9 @@
 
   .technology__title {
     text-align: center;
+  }
+
+  .technology__description {
+    background: #202020;
   }
 }

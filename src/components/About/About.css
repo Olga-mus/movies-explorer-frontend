@@ -136,15 +136,16 @@
   }
 
   .about__info {
-    max-width: 319px;
+    /* max-width: 319px; */
   }
 
   .about__info:first-of-type {
-    margin-right: 30px;
+    margin-right: 0px;
   }
 
   .about__content {
     flex-direction: column;
+    align-items: center;
   }
 
   .about__title {

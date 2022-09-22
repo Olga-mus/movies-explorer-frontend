@@ -53,14 +53,18 @@ function Register() {
                 <span className="password-error register__error-message"></span>
               </label>
             </fieldset>
-            <Link to="/signin">
-              <button className="register__button link">
+            <Link to="/signin" target="_blank">
+              <button type="button" className="register__button link">
                 Зарегистрироваться
               </button>
             </Link>
             <div className="register__entry">
               <p className="register__reg">Уже зарегистрированы?</p>
-              <Link className="register__link-entry link link" to="/signin">
+              <Link
+                className="register__link-entry link link"
+                target="_blank"
+                to="/signin"
+              >
                 Войти
               </Link>
             </div>

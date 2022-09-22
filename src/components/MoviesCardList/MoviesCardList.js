@@ -1,13 +1,15 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import MovieCardActive from "../MovieCardActive/MovieCardActive";
+import MovieCardDelete from "../MovieCardDelete/MovieCardDelete";
 import AddBlock from "../AddBlock/AddBlock";
 function MoviesCardList() {
   return (
     <section className="elements">
       <div className="elements__movies">
         <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
+        <MovieCardActive />
+        <MovieCardDelete />
         <MoviesCard />
         <MoviesCard />
         <MoviesCard />
