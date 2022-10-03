@@ -1,5 +1,6 @@
 import "./MoviesCard.css";
 import card from "../../images/movie/movie-card.jpg";
+import Preloader from "../Preloader/Preloader";
 
 function MoviesCard() {
   return (

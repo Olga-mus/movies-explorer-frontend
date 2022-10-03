@@ -1,20 +1,65 @@
 import "./Register.css";
 import { Link } from "react-router-dom";
-// import Header from '../Header/Header';
-function Register() {
+import { useState } from "react";
+import logo from '../../images/header/header-logo.svg';
+import Preloader from "../Preloader/Preloader";
+
+
+function Register(props) {
+  const { onRegister } = props;
+
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (email && password && name) {
+      const newUser = {
+        name, email, password
+      }
+      onRegister(newUser);
+    }
+  }
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+
+    if (name === "name") {
+      setName(value);
+    }
+
+    if (name === "email") {
+      setEmail(value);
+    }
+
+    if (name === "password") {
+      setPassword(value);
+    }
+  }
+
   return (
     <section className="register">
       <div className="register__content">
         <div className="register__container">
-          {/* <a href='#' className='register__link link'>
+         <Link className='register__link link' target="_blank" to="/">
           <img src={logo} className='register__logo' alt='лого'></img>
-        </a> */}
-          {/* <h1 className='register__title'>Добро пожаловать!</h1> */}
-          <form className="register__form">
+        </Link>
+          <h1 className='register__title'>Добро пожаловать!</h1>
+          <form
+            name="register-form"
+            noValidate
+            onSubmit={handleSubmit}
+            className="register__form"
+          >
             <fieldset className="register__edit">
               <label className="register__field">
                 Имя
                 <input
+                  onChange={handleChange}
+                  value={name}
                   id="register"
                   type="text"
                   name="name"
@@ -30,6 +75,8 @@ function Register() {
               <label className="register__field">
                 E-mail
                 <input
+                  onChange={handleChange}
+                  value={email}
                   id="email"
                   type="email"
                   name="email"
@@ -43,6 +90,8 @@ function Register() {
               <label className="register__field">
                 Пароль
                 <input
+                  onChange={handleChange}
+                  value={password}
                   id="password"
                   type="password"
                   name="password"
@@ -54,7 +103,7 @@ function Register() {
               </label>
             </fieldset>
             <Link to="/signin" target="_blank">
-              <button type="button" className="register__button link">
+              <button type="submit" className="register__button link">
                 Зарегистрироваться
               </button>
             </Link>

@@ -4,7 +4,7 @@
 }
 
 .register__content {
-  padding: 0 70px 70px;
+  padding: 70px 70px 70px;
   max-width: 1140px;
   background: #202020;
   height: 100%;
@@ -132,14 +132,14 @@
 
 @media screen and (max-width: 1279px) {
   .register__content {
-    padding: 0 30px 232px;
+    padding: 232px 30px 232px;
     max-width: 1219px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .register__content {
-    padding: 0 14px 30px;
+    padding: 56px 14px 30px;
     max-width: 739px;
   }
 
