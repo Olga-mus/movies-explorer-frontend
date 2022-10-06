@@ -12,23 +12,23 @@
 }
 
 .portfolio__title {
-  font-family: "Inter", "Arial", sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.11;
-  color: #8B8B8B;
+  color: #8b8b8b;
   margin: 0;
   padding-bottom: 30px;
 }
 
-.portfolio__name {
-  font-family: "Inter", "Arial", sans-serif;
+.portfolio__link-element {
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 1.67;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0;
   padding: 0;
 }

@@ -1,5 +1,5 @@
-import "./Portfolio.css";
-import arrow from "../../images/portfolio/arrow.svg";
+import './Portfolio.css'
+import arrow from '../../images/portfolio/arrow.svg'
 
 function Portfolio() {
   return (
@@ -14,7 +14,7 @@ function Portfolio() {
               rel="noreferrer"
               href="https://olga-mus.github.io/russian-travel/index.html"
             >
-              <h3 className="portfolio__name">Статичный сайт</h3>
+              Статичный сайт
             </a>
             <a
               className="portfolio__link-element"
@@ -36,7 +36,7 @@ function Portfolio() {
               target="_blank"
               rel="noreferrer"
             >
-              <h3 className="portfolio__name">Адаптивный сайт</h3>
+              Адаптивный сайт
             </a>
             <a
               className="portfolio__link-element"
@@ -58,7 +58,7 @@ function Portfolio() {
               rel="noreferrer"
               href="https://olga-mus.github.io/mesto/index.html"
             >
-              <h3 className="portfolio__name">Одностраничное приложение</h3>
+              Одностраничное приложение
             </a>
             <a
               className="portfolio__link-element"
@@ -76,7 +76,7 @@ function Portfolio() {
         </ul>
       </div>
     </section>
-  );
+  )
 }
 
-export default Portfolio;
+export default Portfolio

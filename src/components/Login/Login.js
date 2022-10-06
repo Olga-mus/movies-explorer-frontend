@@ -1,46 +1,30 @@
-import "./Login.css";
-import { Link } from "react-router-dom";
-import { React, useState } from "react";
-import logo from '../../images/header/header-logo.svg';
-import {emailRegex} from '../../constants/constants'
-import {nameRegex} from '../../constants/constants'
+import './Login.css'
+import { Link } from 'react-router-dom'
+import { React } from 'react'
+import logo from '../../images/header/header-logo.svg'
+import { loginValidationConfig } from '../../constants/constants'
+import { useFormWithValidation } from '../../hooks/useFormWithValidation'
+import Dialog from '../Dialog/Dialog'
 
-import Preloader from "../Preloader/Preloader";
-
-function Login(props) {
-  const { onLogin } = props;
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Login({ onLogin, isWaitingResponse, authError }) {
+  const { values, handleChange, errors, isValid } = useFormWithValidation(
+    { email: '', password: '' },
+    loginValidationConfig
+  )
 
   function handleSubmit(e) {
-    e.preventDefault();
-
-    if (email && password) {
-      onLogin(email, password);
-    }
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    if (name === "email") {
-      setEmail(value);
-    }
-
-    if (name === "password") {
-      setPassword(value);
-    }
+    e.preventDefault()
+    onLogin(values)
   }
 
   return (
     <section className="login">
       <div className="login__content">
         <div className="login__container">
-        <Link className='login__link link' target="_blank" to="/">
-          <img src={logo} className='login__logo' alt='лого'></img>
-        </Link>
-        <h1 className='login__title'>Рады видеть!</h1>
+          <Link className="login__link link" to="/">
+            <img src={logo} className="login__logo" alt="лого"></img>
+          </Link>
+          <h1 className="login__title">Рады видеть!</h1>
           <form
             name="login_form"
             noValidate
@@ -52,7 +36,7 @@ function Login(props) {
                 E-mail
                 <input
                   onChange={handleChange}
-                  value={email}
+                  value={values.email}
                   id="email"
                   type="email"
                   name="email"
@@ -60,13 +44,15 @@ function Login(props) {
                   className="login__input login__input_type_email"
                   required
                 />
-                <span className="email-error login__error-message"></span>
+                <span className="email-error login__error-message">
+                  {errors.email}
+                </span>
               </label>
               <label className="login__field">
                 Пароль
                 <input
                   onChange={handleChange}
-                  value={password}
+                  value={values.password}
                   id="password"
                   type="password"
                   name="password"
@@ -74,29 +60,30 @@ function Login(props) {
                   className="login__input login__input_type_password"
                   required
                 />
-                <span className="password-error login__error-message"></span>
+                <span className="password-error login__error-message">
+                  {errors.password}
+                </span>
               </label>
             </fieldset>
-            <Link target="_blank" to="/signin">
-              <button type="submit" className="login__button link">
-                Войти
-              </button>
-            </Link>
+            <button
+              type="submit"
+              className="login__button link"
+              disabled={!isValid || isWaitingResponse}
+            >
+              Войти
+            </button>
             <div className="login__entry">
               <p className="login__reg">Ещё не зарегистрированы?</p>
-              <Link
-                className="login__link-entry link link"
-                target="_blank"
-                to="/signup"
-              >
+              <Link className="login__link-entry link link" to="/signup">
                 Регистрация
               </Link>
             </div>
           </form>
+          <Dialog error={authError} />
         </div>
       </div>
     </section>
-  );
+  )
 }
 
-export default Login;
+export default Login

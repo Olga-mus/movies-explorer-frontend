@@ -1,41 +1,40 @@
-import "./PopupEditProfile.css";
-import "../App/App.css";
-import React, { useState, useEffect, useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import './PopupEditProfile.css'
+import '../App/App.css'
+import React, { useState, useEffect, useContext } from 'react'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function PopupEditProfile(props) {
+  const currentUser = React.useContext(CurrentUserContext)
 
-  const currentUser = React.useContext(CurrentUserContext);
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const open = props.isOpen ? 'popup_opened' : ''
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const open = props.isOpen ? "popup_opened" : "";
-  
-    // После загрузки текущего пользователя из API
-    // его данные будут использованы в управляемых компонентах.
-    useEffect(() => {
-      setName(currentUser.name || "");
-      setEmail(currentUser.email || "");
-    }, [currentUser]);
-  
-    function handleSubmit(e) {
-      // Запрещаем браузеру переходить по адресу формы
-      e.preventDefault();
-  
-      // Передаём значения управляемых компонентов во внешний обработчик
-      props.onUpdateUser({
-        name,
-        email,
-      });
-    }
-  
-    function handleChangeName(e) {
-      setName(e.target.value);
-    }
-  
-    function handleChangeEmail(e) {
-      setEmail(e.target.value);
-    }
+  // После загрузки текущего пользователя из API
+  // его данные будут использованы в управляемых компонентах.
+  useEffect(() => {
+    setName(currentUser.name || '')
+    setEmail(currentUser.email || '')
+  }, [currentUser])
+
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault()
+
+    // Передаём значения управляемых компонентов во внешний обработчик
+    props.onUpdateUser({
+      name,
+      email,
+    })
+  }
+
+  function handleChangeName(e) {
+    setName(e.target.value)
+  }
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value)
+  }
 
   return (
     <div
@@ -49,7 +48,7 @@ function PopupEditProfile(props) {
           id="form__edit-profile"
           className="popup-prof__form"
           name="edit_profile"
-          novalidate
+          noValidate
         >
           <h3 className="popup-prof__title">Редактировать профиль</h3>
           <fieldset className="popup-prof__profile">
@@ -63,8 +62,8 @@ function PopupEditProfile(props) {
                 placeholder="Введите имя"
                 className="popup-prof__input popup-prof__input_type_name"
                 required
-                minlength="2"
-                maxlength="40"
+                minLength="2"
+                maxLength="40"
               />
               <span className="firstname-error popup-prof__error-message"></span>
             </label>
@@ -78,8 +77,8 @@ function PopupEditProfile(props) {
                 placeholder="Введите email"
                 className="popup-prof__input popup-prof__input_type_job"
                 required
-                minlength="2"
-                maxlength="40"
+                minLength="2"
+                maxLength="40"
               />
               <span className="email-error popup-prof__error-message"></span>
             </label>
@@ -94,7 +93,7 @@ function PopupEditProfile(props) {
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default PopupEditProfile;
+export default PopupEditProfile

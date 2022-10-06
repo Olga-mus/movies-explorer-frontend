@@ -1,5 +1,5 @@
-import "./Chief.css";
-import web from "../../images/chief/header-emblem.png";
+import './Chief.css'
+import web from '../../images/chief/header-emblem.png'
 function Chief() {
   return (
     <section className="chief">
@@ -12,13 +12,15 @@ function Chief() {
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </p>
           <a className="chief__link link" href="#abouts">
-            <button type="button" className="chief__button">Узнать больше</button>
+            <button type="button" className="chief__button">
+              Узнать больше
+            </button>
           </a>
         </div>
         <img className="chief__image" src={web} alt="логотип веб" />
       </div>
     </section>
-  );
+  )
 }
 
-export default Chief;
+export default Chief

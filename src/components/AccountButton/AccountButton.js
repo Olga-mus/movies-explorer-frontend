@@ -1,13 +1,13 @@
-import "../App/App.css";
-import "./AccountButton.css";
-import { Link } from "react-router-dom";
+import '../App/App.css'
+import './AccountButton.css'
+import { Link } from 'react-router-dom'
 
 function AccountButton() {
   return (
-    <Link to="/profile">
-      <button className="account__button link">Аккаунт</button>
+    <Link className="account__button link" to="/profile">
+      Аккаунт
     </Link>
-  );
+  )
 }
 
-export default AccountButton;
+export default AccountButton

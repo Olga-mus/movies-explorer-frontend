@@ -1,52 +1,61 @@
 .menu {
   width: 100%;
   /* background: #202020; */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
   height: 100%;
+  z-index: 999;
 }
 
 .menu__container {
   /* background-color: #202020; */
-  max-width: 1280px;
+  /* max-width: 520px; */
   height: 100%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  /* margin-left: auto; */
   padding: 0;
   height: 100%;
   display: flex;
+  justify-content: flex-end;
 }
 
 .menu__shadow {
-  min-width: 248px;
+  width: 100%;
   background: #202020;
   opacity: 0.3;
 }
 
 .menu__lead {
-  width: 1032px;
+  max-width: 520px;
   background: #202020;
   padding: 159px 90px 90px;
-  font-family: "Inter", "Arial", sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 1.21;
-  color: #FFFFFF;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   position: relative;
+  flex-shrink: 0;
+  padding-bottom: 90px;
 }
 
 .menu__subtitle {
   text-decoration: underline;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .menu__title {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .menu__save-films {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .menu-nav {
@@ -75,8 +84,9 @@
     border-radius: 20px;
     margin: 593px auto 0;
 } */
+
 .menu__button {
-  margin: 593px auto 0;
+  margin-top: auto;
   text-align: center;
 }
 

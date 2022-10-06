@@ -1,41 +1,26 @@
-import "./MoviesCardList.css";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import MovieCardActive from "../MovieCardActive/MovieCardActive";
-import MovieCardDelete from "../MovieCardDelete/MovieCardDelete";
-import AddBlock from "../AddBlock/AddBlock";
-import SearchForm from "../SearchForm/SearchForm";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-function MoviesCardList() {
+import './MoviesCardList.css'
+import MoviesCard from '../MoviesCard/MoviesCard'
+import AddBlock from '../AddBlock/AddBlock'
+
+function MoviesCardList({
+  movies,
+  showMoreMovies,
+  isShowButton,
+  loadingMoviesError,
+}) {
+  if (loadingMoviesError)
+    return <p className="elements__error">{loadingMoviesError}</p>
+
   return (
-    <>
-      <Header />
-      <SearchForm />
-      <FilterCheckbox />
-      <section className="elements">
-        <div className="elements__movies">
-          <MoviesCard />
-          <MovieCardActive />
-          <MovieCardDelete />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-        </div>
-        <AddBlock />
-        {/* <div className="elements__more">
-      <button className="elements__more-button">Ещё</button>
-    </div> */}
-      </section>
-      <Footer />
-    </>
-  );
+    <section className="elements">
+      <div className="elements__movies">
+        {movies.map((movie) => (
+          <MoviesCard key={movie.id || movie._id} movie={movie} />
+        ))}
+      </div>
+      {isShowButton && <AddBlock showMoreMovies={showMoreMovies} />}
+    </section>
+  )
 }
 
-export default MoviesCardList;
+export default MoviesCardList

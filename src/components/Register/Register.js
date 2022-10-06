@@ -1,53 +1,31 @@
-import "./Register.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import logo from '../../images/header/header-logo.svg';
-import Preloader from "../Preloader/Preloader";
+import './Register.css'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import logo from '../../images/header/header-logo.svg'
+import Preloader from '../Preloader/Preloader'
+import { useFormWithValidation } from '../../hooks/useFormWithValidation'
+import { registrationValidationConfig } from '../../constants/constants'
+import Dialog from '../Dialog/Dialog'
 
-
-function Register(props) {
-  const { onRegister } = props;
-
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Register({ onRegister, isWaitingResponse, authError }) {
+  const { values, handleChange, errors, isValid } = useFormWithValidation(
+    { name: '', email: '', password: '' },
+    registrationValidationConfig
+  )
 
   function handleSubmit(e) {
-    e.preventDefault();
-
-    if (email && password && name) {
-      const newUser = {
-        name, email, password
-      }
-      onRegister(newUser);
-    }
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    if (name === "name") {
-      setName(value);
-    }
-
-    if (name === "email") {
-      setEmail(value);
-    }
-
-    if (name === "password") {
-      setPassword(value);
-    }
+    e.preventDefault()
+    onRegister(values)
   }
 
   return (
     <section className="register">
       <div className="register__content">
         <div className="register__container">
-         <Link className='register__link link' target="_blank" to="/">
-          <img src={logo} className='register__logo' alt='лого'></img>
-        </Link>
-          <h1 className='register__title'>Добро пожаловать!</h1>
+          <Link className="register__link link" to="/">
+            <img src={logo} className="register__logo" alt="лого"></img>
+          </Link>
+          <h1 className="register__title">Добро пожаловать!</h1>
           <form
             name="register-form"
             noValidate
@@ -59,24 +37,26 @@ function Register(props) {
                 Имя
                 <input
                   onChange={handleChange}
-                  value={name}
+                  value={values.name}
                   id="register"
                   type="text"
                   name="name"
                   placeholder="Имя"
                   className="register__input register__input_type_register"
                   required
-                  minlength="2"
-                  maxlength="30"
+                  minLength="2"
+                  maxLength="30"
                 />
-                <span className="register-error register__error-message"></span>
+                <span className="register-error register__error-message">
+                  {errors.name}
+                </span>
               </label>
 
               <label className="register__field">
                 E-mail
                 <input
                   onChange={handleChange}
-                  value={email}
+                  value={values.email}
                   id="email"
                   type="email"
                   name="email"
@@ -84,14 +64,16 @@ function Register(props) {
                   className="register__input register__input_type_email"
                   required
                 />
-                <span className="email-error register__error-message"></span>
+                <span className="email-error register__error-message">
+                  {errors.email}
+                </span>
               </label>
 
               <label className="register__field">
                 Пароль
                 <input
                   onChange={handleChange}
-                  value={password}
+                  value={values.password}
                   id="password"
                   type="password"
                   name="password"
@@ -99,29 +81,30 @@ function Register(props) {
                   className="register__input register__input_type_password"
                   required
                 />
-                <span className="password-error register__error-message"></span>
+                <span className="password-error register__error-message">
+                  {errors.password}
+                </span>
               </label>
             </fieldset>
-            <Link to="/signin" target="_blank">
-              <button type="submit" className="register__button link">
-                Зарегистрироваться
-              </button>
-            </Link>
+            <button
+              type="submit"
+              className="register__button link"
+              disabled={!isValid || isWaitingResponse}
+            >
+              Зарегистрироваться
+            </button>
             <div className="register__entry">
               <p className="register__reg">Уже зарегистрированы?</p>
-              <Link
-                className="register__link-entry link link"
-                target="_blank"
-                to="/signin"
-              >
+              <Link className="register__link-entry link link" to="/signin">
                 Войти
               </Link>
             </div>
           </form>
+          <Dialog error={authError} />
         </div>
       </div>
     </section>
-  );
+  )
 }
 
-export default Register;
+export default Register

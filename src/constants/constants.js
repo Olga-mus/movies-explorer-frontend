@@ -1,12 +1,36 @@
-export const emailRegex = RegExp(
-    /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
-)
+export const EMAIL_REGEX = /[^@\s]+@[^@\s]+\.[^@\s]+/i
+export const NAME_REGEX = /^[a-zа-яё-\s]+$/i
 
-//export const nameRegex = RegExp(/^[А-ЯA-ZёәіңғүұқөһӘІҢҒҮҰҚӨҺ\h-]+$/umi)
-export const nameRegex = RegExp(/^[a-zA-Zа-яёА-ЯЁ\-\s]\+$/)
+export const loginValidationConfig = {
+  regEx: {
+    email: EMAIL_REGEX,
+  },
+  message: {
+    email: 'Неверный формат email',
+  },
+}
 
-// /[а-яё\s]/gi
-// [A-Z]
-// \s пробелы
+export const registrationValidationConfig = {
+  regEx: {
+    name: NAME_REGEX,
+    email: EMAIL_REGEX,
+  },
+  message: {
+    name: 'Имя может состоять только из букв, пробелов и тире',
+    email: 'Неверный формат email',
+  },
+}
 
-// /[a-z, а-яё\-\s]/gi
+export const COUNT_CARDS = {
+  MAX: 12,
+  MEDIUM: 8,
+  MIN: 5,
+}
+
+export const COUNT_CARDS_ADD = {
+  MAX: 3,
+  MEDIUM: 2,
+  MIN: 2,
+}
+
+export const SHORT_MOVIE_MIN = 40

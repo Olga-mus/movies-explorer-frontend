@@ -1,24 +1,23 @@
-export class MoviesApi {
+class MoviesApi {
   constructor(config) {
-    this.baseURL = config.baseURL;
-  }
-
-  getCards() {
-    return fetch(`${this._url}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => this._checkResponse(res));
+    this.url = config.url
+    this.headers = config.headers
   }
 
   _checkResponse(res) {
-    return res.ok ? res.json() : Promise.reject(res.status);
+    return res.ok ? res.json() : Promise.reject(res.status)
+  }
+
+  getCards() {
+    return fetch(this.url, {
+      headers: this.headers,
+    }).then(this._checkResponse)
   }
 }
 
 export const moviesApi = new MoviesApi({
-  baseUrl: "https://api.nomoreparties.co/beatfilm-movies",
+  url: 'https://api.nomoreparties.co/beatfilm-movies',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
-});
+})

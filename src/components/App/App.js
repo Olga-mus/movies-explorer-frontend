@@ -1,237 +1,281 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
-import "../Main/Main.css";
-import "./App.css";
-import Main from "../Main/Main";
-import Movies from "../Movies/Movies";
-import Profile from "../Profile/Profile";
-import Register from "../Register/Register";
-import Login from "../Login/Login";
-import PageNotFound from "../PageNotFound/PageNotFound";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import SavedMovies from "../SavedMovies/SavedMovies";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import Preloader from "../Preloader/Preloader";
-import { mainApi } from "../../utils/MainApi";
-import { MoviesApi } from "../../utils/MoviesApi";
-import { AuthContext } from "../../contexts/AuthContext";
-import PopupEditProfile from "../PopupEditProfile/PopupEditProfile";
-
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
+import '../Main/Main.css'
+import './App.css'
+import Main from '../Main/Main'
+import Movies from '../Movies/Movies'
+import Profile from '../Profile/Profile'
+import Menu from '../Menu/Menu'
+import Register from '../Register/Register'
+import Login from '../Login/Login'
+import PageNotFound from '../PageNotFound/PageNotFound'
+import SavedMovies from '../SavedMovies/SavedMovies'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+import Preloader from '../Preloader/Preloader'
+import { mainApi } from '../../utils/MainApi'
+import { moviesApi } from '../../utils/MoviesApi'
+import { AppContext } from '../../contexts/AppContext'
+import { deleteLocal, getLocal, setLocal } from '../../utils/localStorage'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({}); //для хранения данных о пользователе
-  const [loggedIn, setLoggedIn] = useState(false); //Внутри App.js подготовим стейт-переменную loggedIn. Она будет содержать статус пользователя — вошёл он в систему или нет
-  const token = localStorage.getItem("jwt");
-  const [preloader, setPreloader] = useState(false);
-  const history = useHistory();
-  const [isTooltipPopupOpen, setTooltipPopupOpen] = useState(false);
-  const [isRequestCompleted, setRequestCompleted] = useState(false);
-  const [userEmail, setUserEmail] = useState("ya@kick.ru");
-  const [cards, setCards] = useState([]);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const history = useHistory()
+  const [currentUser, setCurrentUser] = useState({}) //для хранения данных о пользователе
+  const [loggedIn, setLoggedIn] = useState(false) //Внутри App.js подготовим стейт-переменную loggedIn. Она будет содержать статус пользователя — вошёл он в систему или нет
+  const [loading, setLoading] = useState(true)
+  const [allMovies, setAllMovies] = useState([])
+  const [savedMovies, setSavedMovies] = useState([])
+  const [isLoadingMovies, setLoadingMovies] = useState(false)
+  const [loadingMoviesError, setLoadingMoviesError] = useState('')
+  const [statusUpdateProfile, setStatusUpdateProfile] = useState('')
+  const [isWaitingResponse, setWaitingResponse] = useState(false)
+  const [authError, setAuthError] = useState('')
 
-
-
-
-  //закрытие попапов
-  const closeAllPopups = () => {
-    setTooltipPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-
-  };
-
-  function handleSignOutClick() {
-    localStorage.removeItem("jwt");
-    setLoggedIn(false);
-    history.push("/signin");
-  }
-
+  // Вход по токену
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
+    handleLoginToken()
+  }, [])
 
-    if (token) {
-      mainApi
-        .checkToken(token)
-        .then((data) => {
-          setLoggedIn(true);
-          setUserEmail(data.email);
-          history.push("/movies");
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [history]);
+  // Вход по токену
+  function handleLoginToken() {
+    const token = getLocal('jwt')
+    token ? handleCheckToken(token) : setLoading(false)
+  }
 
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     // вызываем получение данных ...
-  //     Promise.all([mainApi.getProfile(token), mainApi.getSaveMovies(token)])
-  //       .then((resData) => {
-  //         const [userData, cardList] = resData;
-  //         setCurrentUser(userData.data);
-  //         setCards(cardList.reverse());
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [loggedIn, token]);
+  function showLoadingMoviesError() {
+    setLoadingMoviesError(
+      'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+    )
+  }
 
-  function handleRegisterSubmit(newUser) {
-    setPreloader(true);
-    mainApi
-      .register(newUser)
-      .then((res) => {
-        if (res) {
-          console.log("register");
-          setLoggedIn(true);
-          setRequestCompleted(true);
-          setTooltipPopupOpen(true);
+  function showAuthError(message) {
+    setAuthError(message)
+    setTimeout(() => {
+      setAuthError('')
+    }, 2000)
+  }
 
-          setTimeout(() => {
-            history.push("/signin");
-            setTooltipPopupOpen(false);
-          }, 1500);
-        }
+  function showStatusUpdateProfile(message) {
+    setStatusUpdateProfile(message)
+    setTimeout(() => {
+      setStatusUpdateProfile('')
+    }, 2000)
+  }
+
+  // Загрузить все фильмы
+  function loadAllMovies() {
+    const token = getLocal('jwt')
+    setLoadingMovies(true)
+    setLoadingMoviesError('')
+
+    Promise.all([moviesApi.getCards(), mainApi.getSaveMovies(token)])
+      .then(([all, saved]) => {
+        setAllMovies(
+          all.map((movie) => {
+            let formatMovie = null
+
+            saved.forEach((savedMovie) => {
+              if (savedMovie.movieId === movie.id) {
+                formatMovie = { ...movie, _id: savedMovie._id }
+              }
+            })
+
+            return formatMovie || movie
+          })
+        )
       })
-      .catch(() => {
-        setRequestCompleted(false);
-        setTooltipPopupOpen(true);
+      .catch((err) => {
+        if (err === 401) handleSignOutClick()
+        showLoadingMoviesError()
+      })
+      .finally(() => {
+        setLoadingMovies(false)
       })
   }
 
-  function handleLoginSubmit(email, password) {
-    setPreloader(true)
+  // Загрузить сохраненные фильмы
+  function loadSavedMovies() {
+    const token = getLocal('jwt')
+    setLoadingMovies(true)
+    setLoadingMoviesError('')
     mainApi
-      .authorize(email, password)
-      .then((res) => {
-        if (res.token) {
-          console.log("authorize");
-          setLoggedIn(true);
-          setUserEmail(email);
-          history.push("/movies");
-          localStorage.setItem("jwt", res.token);
-        }
+      .getSaveMovies(token)
+      .then((movies) => {
+        setSavedMovies(movies)
       })
-      .catch(() => {
-        setRequestCompleted(false);
-        setTooltipPopupOpen(true);
-      });
+      .catch((err) => {
+        if (err === 401) handleSignOutClick()
+        showLoadingMoviesError()
+      })
+      .finally(() => {
+        setLoadingMovies(false)
+      })
   }
 
-  const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen(true); //переменные состояния, отвечающие за видимость
-  };
+  // Выход
+  function handleSignOutClick() {
+    setCurrentUser({})
+    setLoggedIn(false)
+    setAllMovies([])
+    setSavedMovies([])
+    deleteLocal('searchQueryMovies')
+    deleteLocal('isShortMovies')
+    deleteLocal('jwt')
+  }
 
-  const handleUpdateUser = (data) => {
+  // Регистрация
+  function handleRegisterSubmit(user) {
+    // setPreloader(true)
+    setWaitingResponse(true)
+    mainApi
+      .register(user)
+      .then(() => {
+        handleLoginSubmit({ email: user.email, password: user.password })
+      })
+      .catch(() => {
+        showAuthError('Произошла ошибка при регистрации')
+      })
+      .finally(() => {
+        setWaitingResponse(false)
+      })
+  }
+
+  // Вход
+  function handleLoginSubmit(user) {
+    // setPreloader(true)
+    setWaitingResponse(true)
+    mainApi
+      .authorize(user)
+      .then(({ token }) => {
+        setLoggedIn(true)
+        handleCheckToken(token)
+        setLocal('jwt', token)
+        history.push('/movies')
+      })
+      .catch(() => {
+        showAuthError('Произошла ошибка при входе')
+      })
+      .finally(() => {
+        setWaitingResponse(false)
+      })
+  }
+
+  // Авторизация по токену
+  function handleCheckToken(token) {
+    mainApi
+      .checkToken(token)
+      .then((user) => {
+        setLoggedIn(true)
+        setCurrentUser(user)
+      })
+      .catch((err) => {
+        if (err === 401) handleSignOutClick()
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  function handleUpdateUser(data) {
+    const token = getLocal('jwt')
+    setWaitingResponse(true)
     mainApi
       .editProfile(data, token)
       .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
+        setCurrentUser(res)
+        showStatusUpdateProfile('Данные профиля успешно обновлены')
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        if (err === 401) handleSignOutClick()
+        showStatusUpdateProfile('Ошибка! Данные профиля не удалось обновить')
+      })
+      .finally(() => {
+        setWaitingResponse(false)
+      })
+  }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <AuthContext.Provider
-        value={{ loggedIn: loggedIn, userEmail: userEmail }}
-      >
+    <AppContext.Provider
+      value={{
+        loggedIn: loggedIn,
+        savedMoviesContext: {
+          setSavedMovies,
+          savedMovies,
+        },
+      }}
+    >
+      <CurrentUserContext.Provider value={currentUser}>
         <div className="App">
-          {/* <Header onSignOut={handleSignOutClick} loggedIn={loggedIn} /> */}
-          {/* Пропс exact гарантирует, что значение пропса path будет сравниваться с путём в URL по принципу полного равенства  */}
           <main>
-            <Switch>
-              {/* Если разместить несколько компонентов Route внутри Switch, отрисуется только один из них. */}
+            {!loading && (
+              <Switch>
+                <Route exact path="/">
+                  <Main />
+                </Route>
 
-              {/* <ProtectedRoute
-              exact
-              path="/"
-              loggedIn={loggedIn}
-              component={Main}
-            /> */}
+                <ProtectedRoute
+                  path="/movies"
+                  loggedIn={loggedIn}
+                  component={Movies}
+                  movies={allMovies}
+                  loadAllMovies={loadAllMovies}
+                  isLoadingMovies={isLoadingMovies}
+                  loadingMoviesError={loadingMoviesError}
+                />
 
-              <Route exact path="/">
-                <Main />
-              </Route>
+                <ProtectedRoute
+                  path="/saved-movies"
+                  loggedIn={loggedIn}
+                  component={SavedMovies}
+                  movies={savedMovies}
+                  loadSavedMovies={loadSavedMovies}
+                  isLoadingMovies={isLoadingMovies}
+                  loadingMoviesError={loadingMoviesError}
+                />
 
-              {/* <Route path="/movies">
-            <Movies />
-          </Route> */}
+                <ProtectedRoute
+                  path="/profile"
+                  loggedIn={loggedIn}
+                  component={Profile}
+                  onEditProfile={handleUpdateUser}
+                  onSignOut={handleSignOutClick}
+                  statusUpdateProfile={statusUpdateProfile}
+                  authError={isWaitingResponse}
+                />
 
-              <ProtectedRoute
-                path="/movies"
-                loggedIn={loggedIn}
-                cards={cards}
-                component={Movies}
-              />
+                <ProtectedRoute
+                  path="/signup"
+                  loggedIn={!loggedIn}
+                  component={Register}
+                  onRegister={handleRegisterSubmit}
+                  isWaitingResponse={isWaitingResponse}
+                  authError={authError}
+                />
 
-              {/* <Route path="/saved-movies">
-            <SavedMovies />
-          </Route> */}
+                <ProtectedRoute
+                  path="/signin"
+                  loggedIn={!loggedIn}
+                  component={Login}
+                  onLogin={handleLoginSubmit}
+                  isWaitingResponse={isWaitingResponse}
+                  authError={authError}
+                />
 
-              <ProtectedRoute
-                path="/saved-movies"
-                loggedIn={loggedIn}
-                cards={cards}
-                component={SavedMovies}
-              />
+                <Route>
+                  <Redirect to={`${loggedIn ? '/' : '/signin'}`} />
+                </Route>
 
-              {/* <Route 
-              path="/profile"
-              onEditProfile={handleEditProfileClick}
->
-            <Profile />
-          </Route> */}
-
-              <ProtectedRoute
-                path="/profile"
-                loggedIn={loggedIn}
-                component={Profile}
-                onEditProfile={handleEditProfileClick}
-              />
-
-              <Route path="/signup">
-                <Register onRegister={handleRegisterSubmit} />
-              </Route>
-
-              <Route path="/signin">
-                <Login onLogin={handleLoginSubmit} />
-              </Route>
-
-              <Route>
-                <Redirect to={`${loggedIn ? "/" : "/signin"}`} />
-              </Route>
-
-              <Route path="*">
-                <PageNotFound />
-              </Route>
-
-              <InfoTooltip
-                isOpen={isTooltipPopupOpen}
-                onClose={closeAllPopups}
-                isRequestCompleted={isRequestCompleted}
-              />
-
-          <PopupEditProfile
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
-            </Switch>
+                <Route path="*">
+                  <PageNotFound />
+                </Route>
+              </Switch>
+            )}
           </main>
-
-          {/* <Footer /> */}
         </div>
-      </AuthContext.Provider>
-    </CurrentUserContext.Provider>
-  );
+      </CurrentUserContext.Provider>
+    </AppContext.Provider>
+  )
 }
 
-export default App;
+export default App

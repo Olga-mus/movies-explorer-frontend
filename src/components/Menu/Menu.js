@@ -1,10 +1,11 @@
-import "./Menu.css";
-import AccountButton from "../AccountButton/AccountButton";
+import './Menu.css'
+import AccountButton from '../AccountButton/AccountButton'
 
-import "../App/App.css";
-import { Link } from "react-router-dom";
-import close from "../../images/menu/close.svg";
-function Menu() {
+import '../App/App.css'
+import { Link } from 'react-router-dom'
+import close from '../../images/menu/close.svg'
+
+function Menu({ setOpenMenu }) {
   return (
     <section className="menu">
       <div className="menu__container">
@@ -27,13 +28,13 @@ function Menu() {
               </Link>
             </li>
           </ul>
-          <Link to="/profile">
-            <div className="menu__button">
-              {/* <button className="menu__button link">Аккаунт</button> */}
-              <AccountButton />
-            </div>
-          </Link>
-          <button className="menu__btn-close link">
+          <div className="menu__button">
+            <AccountButton />
+          </div>
+          <button
+            className="menu__btn-close link"
+            onClick={() => setOpenMenu(false)}
+          >
             <img
               src={close}
               className="menu__button-close"
@@ -43,7 +44,7 @@ function Menu() {
         </nav>
       </div>
     </section>
-  );
+  )
 }
 
-export default Menu;
+export default Menu
