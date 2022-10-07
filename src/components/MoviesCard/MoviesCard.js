@@ -11,7 +11,7 @@ import { getLocal, setLocal } from '../../utils/localStorage'
 function MoviesCard({ movie }) {
   const [savedMovieId, setSavedMovieId] = useState(movie?._id)
   const location = useLocation()
-  const { savedMoviesContext } = useContext(AppContext)
+  const { savedMoviesContext, allMoviesContext } = useContext(AppContext)
 
   const isSavedMoviesPage = location.pathname === '/saved-movies'
 
@@ -53,6 +53,7 @@ function MoviesCard({ movie }) {
 
     mainApi.postMovies(newMovie, token).then((saveMovie) => {
       setSavedMovieId(saveMovie._id)
+      changeAllMovies(movie.id, 'add', saveMovie._id)
     })
   }
 
@@ -68,11 +69,40 @@ function MoviesCard({ movie }) {
           savedMovies.filter((movie) => movie._id !== savedMovieId)
         )
       }
+
+      changeAllMovies(savedMovieId, 'delete')
     })
   }
 
   function handleClickLikeButton() {
     !!savedMovieId ? handleDeleteMovie() : handleSaveMovie()
+  }
+
+  function changeAllMovies(id, type, newId) {
+    const { setAllMovies, allMovies } = allMoviesContext
+
+    if (type === 'delete') {
+      setAllMovies(
+        allMovies.map((movie) => {
+          if (movie._id === id) {
+            movie._id = null
+          }
+          return movie
+        })
+      )
+    }
+
+    if (type === 'add') {
+      setAllMovies(
+        allMovies.map((movie) => {
+          if (movie.id === id) {
+            movie._id = newId
+          }
+
+          return movie
+        })
+      )
+    }
   }
 
   return (
