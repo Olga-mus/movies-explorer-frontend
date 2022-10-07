@@ -70,4 +70,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 Ссылка на макет: https://disk.yandex.ru/d/6qZvvZSTiHCx2A
-Ссылка на пулл реквест https://github.com/Olga-mus/movies-explorer-frontend/pull/2#issue-1401241680
+Ссылка на пулл реквест: https://github.com/Olga-mus/movies-explorer-frontend/pull/2#issue-1401241680
+Ссылка на фронтенд: https://olganum.nomorepartiesxyz.ru/
