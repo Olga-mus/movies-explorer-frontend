@@ -114,6 +114,6 @@ export class MainApi {
 }
 
 export const mainApi = new MainApi({
-  baseURL: 'http://localhost:3001',
-  // baseURL: 'https://api.olganum.nomorepartiesxyz.ru',
+  // baseURL: 'http://localhost:3001',
+  baseURL: 'https://api.olganum.nomorepartiesxyz.ru',
 })
