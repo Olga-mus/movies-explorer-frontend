@@ -1,17 +1,26 @@
 import './Register.css'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from '../../images/header/header-logo.svg'
 import Preloader from '../Preloader/Preloader'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation'
-import { registrationValidationConfig } from '../../constants/constants'
+import { registrationValidationConfig } from '../../utils/constants'
 import Dialog from '../Dialog/Dialog'
 
-function Register({ onRegister, isWaitingResponse, authError }) {
+function Register({
+  onRegister,
+  isWaitingResponse,
+  setWaitingResponse,
+  authError,
+}) {
   const { values, handleChange, errors, isValid } = useFormWithValidation(
     { name: '', email: '', password: '' },
     registrationValidationConfig
   )
+
+  useEffect(() => {
+    setWaitingResponse(false)
+  }, [])
 
   function handleSubmit(e) {
     e.preventDefault()

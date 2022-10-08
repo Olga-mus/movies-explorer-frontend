@@ -1,5 +1,5 @@
-export const EMAIL_REGEX = /[^@\s]+@[^@\s]+\.[^@\s]+/i
-export const NAME_REGEX = /^[a-zа-яё-\s]+$/i
+const EMAIL_REGEX = /[^@\s]+@[^@\s]+\.[^@\s]+/i
+const NAME_REGEX = /^[a-zа-яё-\s]+$/i
 
 export const loginValidationConfig = {
   regEx: {

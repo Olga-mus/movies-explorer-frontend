@@ -6,8 +6,7 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import { useEffect, useState } from 'react'
 import { searchMovies } from '../../utils/searchMovies'
-import { getLocal, setLocal } from '../../utils/localStorage'
-import { COUNT_CARDS, COUNT_CARDS_ADD } from '../../constants/constants'
+import { COUNT_CARDS, COUNT_CARDS_ADD } from '../../utils/constants'
 
 function Movies({
   movies,
@@ -34,8 +33,8 @@ function Movies({
   }, [movies])
 
   useEffect(() => {
-    const queryLocal = getLocal('searchQueryMovies')
-    const isShortLocal = getLocal('isShortMovies')
+    const queryLocal = localStorage.getItem('searchQueryMovies')
+    const isShortLocal = JSON.parse(localStorage.getItem('isShortMovies'))
 
     if (queryLocal) {
       setQuery(queryLocal)
@@ -55,8 +54,9 @@ function Movies({
     } else {
       setFoundMovies(searchMovies(movies, { query, isShort }))
     }
-    setLocal('searchQueryMovies', query)
-    setLocal('isShortMovies', isShort)
+    localStorage.setItem('searchQueryMovies', query)
+
+    localStorage.setItem('isShortMovies', JSON.stringify(isShort))
   }
 
   function changeCountCards() {

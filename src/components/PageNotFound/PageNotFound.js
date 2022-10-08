@@ -1,7 +1,8 @@
-import "./PageNotFound.css";
-import { Link } from "react-router-dom";
+import './PageNotFound.css'
+import { Link, useHistory } from 'react-router-dom'
 
 function PageNotFound() {
+  const history = useHistory()
   return (
     <>
       <div className="page-not-found">
@@ -10,13 +11,16 @@ function PageNotFound() {
             <h1 className="pageNotFound__title">404</h1>
             <h2 className="pageNotFound__subtitle">Страница не найдена</h2>
           </div>
-          <Link className="pageNotFound__redirect link" to="/">
+          <button
+            className="pageNotFound__redirect link"
+            onClick={() => history.goBack()}
+          >
             назад
-          </Link>
+          </button>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default PageNotFound;
+export default PageNotFound

@@ -1,4 +1,4 @@
-import { SHORT_MOVIE_MIN } from '../constants/constants'
+import { SHORT_MOVIE_MIN } from './constants'
 
 export function searchMovies(movies, filter) {
   if (movies.length) {

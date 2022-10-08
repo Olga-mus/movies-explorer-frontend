@@ -6,7 +6,7 @@ import { mainApi } from '../../utils/MainApi'
 import { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContext'
-import { getLocal, setLocal } from '../../utils/localStorage'
+import { getToken } from '../../utils/getToken'
 
 function MoviesCard({ movie }) {
   const [savedMovieId, setSavedMovieId] = useState(movie?._id)
@@ -34,7 +34,7 @@ function MoviesCard({ movie }) {
   )
 
   function handleSaveMovie() {
-    const token = getLocal('jwt')
+    const token = getToken()
 
     const newMovie = {
       country: movie.country,
@@ -58,7 +58,7 @@ function MoviesCard({ movie }) {
   }
 
   function handleDeleteMovie() {
-    const token = getLocal('jwt')
+    const token = getToken()
 
     mainApi.deleteMovie(savedMovieId, token).then(() => {
       const { setSavedMovies, savedMovies } = savedMoviesContext

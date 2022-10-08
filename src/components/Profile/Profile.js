@@ -6,7 +6,7 @@ import Header from '../Header/Header'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import React, { useState, useEffect, useContext } from 'react'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation'
-import { registrationValidationConfig as userValidationConfig } from '../../constants/constants'
+import { registrationValidationConfig as userValidationConfig } from '../../utils/constants'
 
 function Profile({
   onEditProfile,

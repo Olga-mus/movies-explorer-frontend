@@ -13,7 +13,6 @@ export class MainApi {
   //возвращает информацию о пользователе (email и имя)
   getProfile(token) {
     return fetch(`${this.baseURL}/users/me`, {
-      credentials: 'include',
       method: 'GET',
       headers: {
         authorization: `Bearer ${token}`,
@@ -24,7 +23,6 @@ export class MainApi {
   //обновляет информацию о пользователе (email и имя)
   editProfile({ email, name }, token) {
     return fetch(`${this.baseURL}/users/me`, {
-      credentials: 'include',
       method: 'PATCH',
       headers: {
         authorization: `Bearer ${token}`,
@@ -40,7 +38,6 @@ export class MainApi {
   //возвращает все сохранённые текущим  пользователем фильмы
   getSaveMovies(token) {
     return fetch(`${this.baseURL}/movies`, {
-      credentials: 'include',
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -52,7 +49,6 @@ export class MainApi {
 
   postMovies(movie, token) {
     return fetch(`${this.baseURL}/movies`, {
-      credentials: 'include',
       method: 'POST',
       headers: {
         authorization: `Bearer ${token}`,
@@ -67,7 +63,7 @@ export class MainApi {
   deleteMovie(id, token) {
     return fetch(`${this.baseURL}/movies/${id}`, {
       method: 'DELETE',
-      // credentials: 'include',
+      //
       headers: {
         authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',

@@ -12,9 +12,9 @@ function SerchForm({
   const [error, setError] = useState('')
 
   function handleInputValue(e) {
-    const isValidValue = e.target.validity.valid
-    setQuery(e.target.value)
-    setError(isValidValue ? '' : 'Нужно ввести ключевое слово')
+    const value = e.target.value.trim()
+    setQuery(value)
+    setError(value ? '' : 'Нужно ввести ключевое слово')
   }
 
   function submitSearchForm(e) {
@@ -42,7 +42,6 @@ function SerchForm({
                   className="form-serch__input form-serch__input_type_film"
                   required={required}
                   value={query}
-                  minLength={required ? 2 : 0}
                   onInput={handleInputValue}
                 />
                 <span className="film-error form-serch__error-message">

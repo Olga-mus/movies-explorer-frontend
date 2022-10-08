@@ -22,34 +22,36 @@
 }
 
 .pageNotFound__title {
-  font-family: "Inter", "Arial", sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 140px;
   line-height: 1.21;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0;
   padding-bottom: 5px;
 }
 
 .pageNotFound__subtitle {
-  font-family: "Inter", "Arial", sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.21;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0;
   padding-bottom: 184px;
 }
 
 .pageNotFound__redirect {
-  font-family: "Inter", "Arial", sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
-  color: #4285F4;
+  color: #4285f4;
+  background-color: transparent;
+  border: none;
 }
 
 @media screen and (max-width: 1279px) {

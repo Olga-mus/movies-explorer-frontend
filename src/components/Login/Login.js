@@ -1,16 +1,20 @@
 import './Login.css'
 import { Link } from 'react-router-dom'
-import { React } from 'react'
+import { React, useEffect } from 'react'
 import logo from '../../images/header/header-logo.svg'
-import { loginValidationConfig } from '../../constants/constants'
+import { loginValidationConfig } from '../../utils/constants'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import Dialog from '../Dialog/Dialog'
 
-function Login({ onLogin, isWaitingResponse, authError }) {
+function Login({ onLogin, isWaitingResponse, setWaitingResponse, authError }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation(
     { email: '', password: '' },
     loginValidationConfig
   )
+
+  useEffect(() => {
+    setWaitingResponse(false)
+  }, [])
 
   function handleSubmit(e) {
     e.preventDefault()

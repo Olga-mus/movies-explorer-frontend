@@ -16,7 +16,7 @@ import Preloader from '../Preloader/Preloader'
 import { mainApi } from '../../utils/MainApi'
 import { moviesApi } from '../../utils/MoviesApi'
 import { AppContext } from '../../contexts/AppContext'
-import { deleteLocal, getLocal, setLocal } from '../../utils/localStorage'
+import { getToken } from '../../utils/getToken'
 
 function App() {
   const history = useHistory()
@@ -38,7 +38,7 @@ function App() {
 
   // Вход по токену
   function handleLoginToken() {
-    const token = getLocal('jwt')
+    const token = getToken()
     token ? handleCheckToken(token) : setLoading(false)
   }
 
@@ -64,7 +64,7 @@ function App() {
 
   // Загрузить все фильмы
   function loadAllMovies() {
-    const token = getLocal('jwt')
+    const token = getToken()
     setLoadingMovies(true)
     setLoadingMoviesError('')
 
@@ -85,7 +85,7 @@ function App() {
         )
       })
       .catch((err) => {
-        if (err === 401) handleSignOutClick()
+        if (err.endsWith('401')) handleSignOutClick()
         showLoadingMoviesError()
       })
       .finally(() => {
@@ -95,7 +95,7 @@ function App() {
 
   // Загрузить сохраненные фильмы
   function loadSavedMovies() {
-    const token = getLocal('jwt')
+    const token = getToken()
     setLoadingMovies(true)
     setLoadingMoviesError('')
     mainApi
@@ -104,7 +104,7 @@ function App() {
         setSavedMovies(movies)
       })
       .catch((err) => {
-        if (err === 401) handleSignOutClick()
+        if (err.endsWith('401')) handleSignOutClick()
         showLoadingMoviesError()
       })
       .finally(() => {
@@ -118,9 +118,9 @@ function App() {
     setLoggedIn(false)
     setAllMovies([])
     setSavedMovies([])
-    deleteLocal('searchQueryMovies')
-    deleteLocal('isShortMovies')
-    deleteLocal('jwt')
+    localStorage.removeItem('searchQueryMovies')
+    localStorage.removeItem('isShortMovies')
+    localStorage.removeItem('jwt')
   }
 
   // Регистрация
@@ -134,8 +134,6 @@ function App() {
       })
       .catch(() => {
         showAuthError('Произошла ошибка при регистрации')
-      })
-      .finally(() => {
         setWaitingResponse(false)
       })
   }
@@ -149,13 +147,11 @@ function App() {
       .then(({ token }) => {
         setLoggedIn(true)
         handleCheckToken(token)
-        setLocal('jwt', token)
+        localStorage.setItem('jwt', token)
         history.push('/movies')
       })
       .catch(() => {
         showAuthError('Произошла ошибка при входе')
-      })
-      .finally(() => {
         setWaitingResponse(false)
       })
   }
@@ -177,7 +173,7 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    const token = getLocal('jwt')
+    const token = getToken()
     setWaitingResponse(true)
     mainApi
       .editProfile(data, token)
@@ -186,7 +182,7 @@ function App() {
         showStatusUpdateProfile('Данные профиля успешно обновлены')
       })
       .catch((err) => {
-        if (err === 401) handleSignOutClick()
+        if (err.endsWith('401')) handleSignOutClick()
         showStatusUpdateProfile('Ошибка! Данные профиля не удалось обновить')
       })
       .finally(() => {
@@ -219,6 +215,7 @@ function App() {
 
                 <ProtectedRoute
                   path="/movies"
+                  exact
                   loggedIn={loggedIn}
                   component={Movies}
                   movies={allMovies}
@@ -229,6 +226,7 @@ function App() {
 
                 <ProtectedRoute
                   path="/saved-movies"
+                  exact
                   loggedIn={loggedIn}
                   component={SavedMovies}
                   movies={savedMovies}
@@ -239,6 +237,7 @@ function App() {
 
                 <ProtectedRoute
                   path="/profile"
+                  exact
                   loggedIn={loggedIn}
                   component={Profile}
                   onEditProfile={handleUpdateUser}
@@ -249,25 +248,25 @@ function App() {
 
                 <ProtectedRoute
                   path="/signup"
+                  exact
                   loggedIn={!loggedIn}
                   component={Register}
                   onRegister={handleRegisterSubmit}
                   isWaitingResponse={isWaitingResponse}
                   authError={authError}
+                  setWaitingResponse={setWaitingResponse}
                 />
 
                 <ProtectedRoute
                   path="/signin"
+                  exact
                   loggedIn={!loggedIn}
                   component={Login}
                   onLogin={handleLoginSubmit}
                   isWaitingResponse={isWaitingResponse}
                   authError={authError}
+                  setWaitingResponse={setWaitingResponse}
                 />
-
-                <Route>
-                  <Redirect to={`${loggedIn ? '/' : '/signin'}`} />
-                </Route>
 
                 <Route path="*">
                   <PageNotFound />
