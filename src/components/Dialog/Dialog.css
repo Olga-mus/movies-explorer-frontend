@@ -1,0 +1,11 @@
+.dialog {
+  padding: 10px 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  border: none;
+  background-color: #10a727de;
+}

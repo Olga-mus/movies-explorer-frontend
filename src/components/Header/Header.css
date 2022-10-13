@@ -1,0 +1,177 @@
+.header {
+  width: 100%;
+  background: #073042;
+}
+
+.header__menu {
+  background-color: #073042;
+  max-width: 1140px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 18px 70px;
+}
+
+.header__logo {
+  height: 38px;
+  width: 38px;
+}
+
+.header-log__logo {
+  height: 38px;
+  width: 38px;
+}
+
+.header__link {
+  height: 38px;
+}
+
+.header-log__link {
+  height: 38px;
+}
+
+.header-register__logo {
+  height: 38px;
+  width: 38px;
+}
+
+.header-login__logo {
+  height: 38px;
+  width: 38px;
+}
+
+.header__block {
+  background: #073042;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-log {
+  width: 100%;
+  background: #202020;
+}
+
+.header-log__menu {
+  background-color: #202020;
+  max-width: 1140px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 18px 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-log__nav {
+  min-width: 290px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 38px;
+}
+
+.header-log__icon {
+  display: none;
+}
+
+.header-register {
+  width: 100%;
+  background: #202020;
+}
+
+.header-register__menu {
+  background-color: #202020;
+  max-width: 396px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 70px 442px 40px;
+}
+
+.header-register__title {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+  color: #FFF;
+  margin: 40px 0 0;
+}
+
+.header-login {
+  width: 100%;
+  background: #202020;
+}
+
+.header-login__menu {
+  background-color: #202020;
+  max-width: 396px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 70px 442px 40px;
+}
+
+.header-login__title {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+  color: #FFF;
+  margin: 40px 0 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__menu {
+    padding: 18px 30px;
+    max-width: 1219px;
+  }
+
+  .header-log__menu {
+    padding: 15px 30px;
+    max-width: 1219px;
+  }
+
+  .header-log__none {
+    display: none;
+  }
+
+  .header-log__icon {
+    display: block;
+  }
+
+  .header-register__menu {
+    padding: 232px 186px 40px;
+  }
+
+  .header-login__menu {
+    padding: 232px 186px 40px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__menu {
+    padding: 18px 14px;
+    max-width: 739px;
+  }
+
+  .header-log__menu {
+    padding: 17px 14px;
+    max-width: 739px;
+  }
+
+  .header-log__nav {
+    min-width: 200px;
+  }
+
+  .header-register__menu {
+    padding: 56px 30px 80px;
+    max-width: 260px;
+    text-align: center;
+  }
+
+  .header-login__menu {
+    padding: 56px 30px 80px;
+    max-width: 260px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,149 @@
+.profile {
+  width: 100%;
+  background: #202020;
+}
+
+.profile__content {
+  padding: 74px 70px 70px;
+  max-width: 1140px;
+  background: #202020;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.profile__contentainer {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.21;
+  color: #ffffff;
+  height: 46px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  background: #202020;
+}
+
+.profile__title {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 106px;
+}
+
+.profile__label:first-of-type {
+  border-bottom: 1px solid #424242;
+}
+
+.profile__label {
+  width: 100%;
+  display: flex;
+}
+
+.profile__data {
+  margin: 0 auto;
+  width: 410px;
+  margin-bottom: 203px;
+}
+
+.profile__name-profile,
+.profile__email-profile {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  margin-left: auto;
+  text-align: right;
+}
+
+.profile__edit {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.21;
+  color: #ffffff;
+  margin: 0 0 16px;
+  padding: 0;
+  background: #202020;
+  border: none;
+}
+
+.profile__link {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.21;
+  color: #ee3465;
+  cursor: pointer;
+}
+
+.profile__error-message {
+  margin-bottom: 10px;
+  font-size: 14px;
+  display: block;
+  color: #ee3465;
+}
+
+.profile__link:hover {
+  opacity: 0.6;
+}
+
+.profile__menu {
+  width: 410px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.profile__dialog {
+  padding: 10px 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  border: none;
+  background-color: #ffffff80;
+}
+
+@media screen and (max-width: 1279px) {
+  .profile__title {
+    padding-bottom: 96px;
+  }
+
+  .profile__content {
+    padding: 236px 30px 269px;
+    max-width: 1219px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__edit {
+    font-size: 12px;
+  }
+
+  .profile__link {
+    font-size: 12px;
+  }
+
+  .profile__content {
+    padding: 70px 14px 40px;
+    max-width: 739px;
+  }
+
+  .profile__data {
+    width: 260px;
+  }
+
+  .profile__menu {
+    width: 260px;
+  }
+}

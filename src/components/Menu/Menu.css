@@ -1,0 +1,139 @@
+.menu {
+  width: 100%;
+  /* background: #202020; */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 999;
+}
+
+.menu__container {
+  /* background-color: #202020; */
+  /* max-width: 520px; */
+  height: 100%;
+  /* margin: 0 auto; */
+  /* margin-left: auto; */
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menu__shadow {
+  width: 100%;
+  background: #202020;
+  opacity: 0.3;
+}
+
+.menu__lead {
+  max-width: 520px;
+  background: #202020;
+  padding: 159px 90px 90px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.21;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  /* margin: 0 auto; */
+  position: relative;
+  flex-shrink: 0;
+  padding-bottom: 90px;
+}
+
+.menu__subtitle {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+.menu__title {
+  color: #ffffff;
+}
+
+.menu__save-films {
+  color: #ffffff;
+}
+
+.menu-nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.menu__element {
+  padding-bottom: 28px;
+}
+
+/* .menu__button {
+    margin-top: 593px;
+    font-family: "Inter", "Arial", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+    color: #FFFFFF;
+    width: 100px;
+    height: 32px;
+    background-color:  #313131;
+    border: none;
+    border-radius: 20px;
+    margin: 593px auto 0;
+} */
+
+.menu__button {
+  margin-top: auto;
+  text-align: center;
+}
+
+.menu__btn-close {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+}
+
+.menu__button-close {
+  width: 22px;
+  height: 22px;
+  background: #202020;
+  object-fit: none;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__menu {
+    padding: 18px 30px;
+    max-width: 1219px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .menu__shadow {
+    display: none;
+  }
+
+  .menu__element {
+    padding-bottom: 24px;
+  }
+
+  .menu__button {
+    margin-top: 420px;
+  }
+
+  .menu__lead {
+    padding: 144px 10px 46px;
+  }
+
+  .menu__btn-close {
+    top: 13px;
+    right: 13px;
+  }
+}
